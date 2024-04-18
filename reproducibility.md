@@ -48,7 +48,36 @@ Host de-zoomcamp
     User username
     
     IdentityFile /Users/username/.ssh/gpc - location of your personal key
+
+## Desployment of the infrastructure
+
+In this project I have used Terraform. This is a valuable tool in data engineering projects for managing and provisioning infrastructure as code (IaC). Here are some common use cases for Terraform in data engineering projects:
+
+Cloud Resource Provisioning: Terraform can be used to provision and manage cloud resources such as virtual machines (VMs), storage buckets, databases, networking components (e.g., VPCs, subnets, firewall rules), and other infrastructure components required for data engineering workloads.
+
+Infrastructure Automation: Terraform allows you to automate the creation, configuration, and management of infrastructure resources, reducing manual effort and ensuring consistency across environments. This is particularly useful in data engineering projects where you may need to provision and tear down infrastructure frequently for testing, development, and production environments.
+
+
+ ## Steps to install
+
+1. You need to set up the variables.tf file, you need to set up the credentials field with your key, the name of your project and the name of your bucket.
+   
+    <img width="449" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/b3c82104-5bc2-477d-a435-f845534f0be5">
     
+
+3. Also you need to set up main.tf file.
+ 
+4. Run ``` terraform init ```
+
+5. run ``` terraform apply ```  to deploy the resources.
+
+6. Now you will see your bucket and your big query data set in the cloud already deployed.
+In order to access to your bucket click here (https://console.cloud.google.com/storage/) and you'll access to your big query dataset click here[(https://console.cloud.google.com/bigquery?)
+
+### Destroy resources- important
+Be sure to remove all your resources before your free trial expires running the following command 'terraform destroy'
+
+
 
 
    
