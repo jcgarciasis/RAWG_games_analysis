@@ -57,6 +57,7 @@ Cloud Resource Provisioning: Terraform can be used to provision and manage cloud
 
 Infrastructure Automation: Terraform allows you to automate the creation, configuration, and management of infrastructure resources, reducing manual effort and ensuring consistency across environments. This is particularly useful in data engineering projects where you may need to provision and tear down infrastructure frequently for testing, development, and production environments.
 
+It is really usefull because you can edit each block ( Load, Transformation and Export),create new pipelines based on the testing models available easily and very intuitive.
 
  ## Steps to install
 
@@ -76,6 +77,51 @@ In order to access to your bucket click here (https://console.cloud.google.com/s
 
 ### Destroy resources- important
 Be sure to remove all your resources before your free trial expires running the following command 'terraform destroy'
+
+
+## Mage Orchestraction step
+
+In order to build the ETL process, we are going to use this useful platform Mage. Mage is a popular tool used for creating build and automation pipelines.
+
+We are going to load the data from our GCS bucket previously deployed in Terraform, doing same transformations, basically cleanning and unnesting same columns because the data is build in json data type and finally, we will push the data in the GCS bucket again
+
+
+## Setting up Mage instructions
+
+Run the following command in your terminal.
+
+```git clone https://github.com/mage-ai/compose-quickstart.git```
+
+1. Access to the mage-ai folder and build the container ```docker compose build```
+2. Start the docker container running ```docker compose up```
+3. Access to ```localhost:6789``` - you will need to open the port 6789 in your VSCode to get access to the web service.
+
+<img width="611" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/9db4e496-62cd-45ee-8ead-de29a53262f3">
+
+## Configuring Mage to get permissions to GCS
+
+In order to upload the data to your GCS Bucket, you'll need to configure Mage to authenticate with GCP using the path of your key in your virtual machine. You will need to open the io_config.yaml file and modify the field Google_service. 
+
+```
+GOOGLE_SERVICE_ACC_KEY_FILEPATH: "/home/src/{key credentials}.json"
+GOOGLE_LOCATION: EU # Optional
+```
+
+## Creating an external table
+
+Finally, once you have the data in your bucket, you need to create a database and external table in Big Query. You can create a external table running the following code.
+
+```
+CREATE OR REPLACE EXTERNAL TABLE `database.schema.your_table`
+OPTIONS (
+  format = 'csv',
+  uris = ['gs://bucket/data_folder/*.csv']
+)
+;
+Once you run the command in big query, you will see the table in your BigQuery Studio section.
+
+<img width="305" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/e8a9d7a2-d7c7-4225-a69e-8de153d10f33">
+
 
 
 
