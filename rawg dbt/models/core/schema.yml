@@ -1,0 +1,243 @@
+version: 2
+
+models:
+  - name: dim_added_by_status
+    description: >
+      Table provides a list of number of RAWG user had the games as 'not player','owned','completed','to play','played but not beaten' and 'playing'
+    columns:
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+      - name: name
+        data_type: string
+        description: The full name of the game.
+      - name: added_status_yet
+        data_type: int
+        description: Number of RAWG user had the game as 'yet'
+      - name: added_status_owned
+        data_type: int
+        description: Number of RAWG user had the game as 'owned'
+      - name: added_status_toplay
+        data_type: int
+        description: Number of RAWG user had the game as 'to play'
+      - name: added_status_dropped
+        data_type: int
+        description: Number of RAWG user had the game as 'dropped'
+      - name: added_status_playing
+        data_type: int
+        description: Number of RAWG user had the game as 'playing'  
+
+
+  - name: dim_esrb_rating
+    description: Table provides a list of game by ESRB ratings
+    columns:
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+        tests:
+            - not_null:
+                severity: error
+      - name: name
+        data_type: string
+        description: The full name of the game.
+      - name: esrb_rating_name
+        data_type: string
+        description: list of game by ESRB clasification
+      
+      
+  - name: dim_games
+    description: >
+      list of RAWG games by ID
+    columns:
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+        tests:
+            - not_null:
+                severity: error
+      - name: name
+        data_type: string
+        description: The full name of the game.
+
+  - name: dim_metacritic
+    description: >
+      list of games by metacritic score
+    columns:
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+        tests:
+            - not_null:
+                severity: error
+      - name: name
+        data_type: string
+        description: The full name of the game.
+      - name: metacritic
+        data_type: float
+        description: The Metacritic score of the game, if available.
+
+  - name : dim_platform
+    description: >
+      list of games by platform
+    columns:
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+        tests:
+            - not_null:
+                severity: error
+      - name: name
+        data_type: string
+        description: The full name of the game.
+      - name: platform_names
+        data_type: string
+        description: platforms game was released on. Separated by ||
+
+  - name : dim_playtime
+    description: list of games by hours needed to complete the game
+    columns:
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+        tests:
+            - not_null:
+                severity: error
+      - name: name
+        data_type: string
+        description: The full name of the game
+      - name:  playtime
+        data_type: int
+        description: number of hours needed to complete the game
+
+  - name : dim_ratings
+    description: list of game by user rating by rating, rating_top and expeptional, recommended, meh and skip ratings
+    columns:
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+        tests:
+            - not_null:
+                severity: error
+      - name: name
+        data_type: string
+        description: The full name of the game
+      - name: rating
+        data_type: float
+        description: Rating rated by RAWG user
+      - name: rating_top
+        data_type: int
+        description: maximum rating
+      - name : expectional
+        data_type: string
+        description: number of exceptional ratings from RAWG users
+      - name : recommended
+        data_type: string
+        description: number of recommended ratings from RAWG users
+      - name : meh
+        data_type: string
+        description: number of meh ratings from RAWG users
+      - name : skip
+        data_type: string
+        description: number of skip ratings from RAWG users
+
+  - name : dim_released_time
+    description: list of game by the data game was released
+    columns:
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+        tests:
+            - not_null:
+                severity: error
+      - name: name
+        data_type: string
+        description:  The full name of the game
+      - name : released
+        data_type: date
+        description: The release date of the game.
+      - name : month
+        data_type: string
+        description: month released
+      - name : year
+        data_type: int
+        description: year released
+
+  - name : fact_rawg_games
+    description: all the data merged together
+    columns: 
+      - name: id_game
+        data_type: int
+        description: An identifier for each game.
+      - name : name 
+        data_type: string
+        description:  The full name of the game.
+      - name : tba
+        data_type: string
+        description: An indicator (0 or 1) showing whether the release date is "To Be Announced" (TBA).
+      - name : released
+        data_type: date
+        description: The release date of the game.
+      - name : year
+        data_type: int
+        description: year of the game
+      - name : month
+        data_type: int
+        description: month of the game
+      - name : rating 
+        data_type: float
+        description: Rating rated by RAWG user
+      - name: rating_top
+        data_type: int
+        description: Maximum rating
+      - name : expectional
+        data_type: int
+        description: number of exceptional ratings from RAWG users
+      - name : recommended
+        data_type: int
+        description: number of recommended ratings from RAWG users
+      - name : meh
+        data_type: int
+        description: number of meh ratings from RAWG users
+      - name : skip
+        data_type: int
+        description: number of skip ratings from RAWG users
+      - name: playtime
+        data_type: int
+        description: hours needed to complete the game
+      - name: metacritic
+        data_type: float
+        description: The Metacritic score of the game, if available.
+      - name: review_count
+        data_type: int
+        description: Number of RAWG user who reviewed the game
+      - name: esrb_rating_name
+        data_type: string
+        description: list of game by ESRB ratings
+      - name: added_status_yet
+        data_type: int
+        description: Number of RAWG user had the game as 'yet'
+      - name: added_status_owned
+        data_type: int
+        description: Number of RAWG user had the game as 'owned'
+      - name: added_status_toplay
+        data_type: int
+        description: Number of RAWG user had the game as 'to play'
+      - name: added_status_dropped
+        data_type: int
+        description: Number of RAWG user had the game as 'dropped'
+      - name: added_status_playing
+        data_type: int
+        description: Number of RAWG user had the game as 'playing' 
+      - name: platform_names
+        data_type: string
+        description: platforms game was released on. Separated by ||
+
+
+
+
+
+
+
+   
+
+

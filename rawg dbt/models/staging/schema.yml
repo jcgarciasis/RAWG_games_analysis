@@ -1,0 +1,99 @@
+version: 2
+
+sources:
+  - name: staging_rawg
+    database: 'iconic-indexer-412617'
+    schema: 'db_rawg'
+
+    tables:
+      - name: games
+
+models:
+  - name: stg_staging_rawg_data
+    description: ""
+    columns:
+      - name: id_game
+        data_type: int
+        description: " An unique ID identifying this Game in RAWG Database"
+  
+      - name: name
+        data_type: string
+        description: "Name of the game"
+
+      - name: tba
+        data_type: string
+        description: "To be announced state"
+
+      - name: released
+        data_type: timestamp
+        description: "The date the game was released"
+        tests:
+          - not_null:
+              severity: warn
+
+      - name: rating
+        data_type: float
+        description: "Rating rated by RAWG user"
+
+      - name: rating_top
+        data_type: int
+        description: "Maximum rating"
+
+      - name: exceptional
+        data_type: string
+        description: recommended count ratings from users"
+
+      - name: recommended
+        data_type: string
+        description: "exceptional count ratings from users"
+
+      - name: meh
+        data_type: string
+        description: meh count ratings from users"
+
+      - name: skip
+        data_type: string
+        description: "skip count ratings from users"
+
+      - name: playtime
+        data_type: int
+        description: "Hours needed to complete the game"
+
+      - name: metacritic
+        data_type: float
+        description: "Rating of the game on Metacritic"
+
+      - name: reviews_count
+        data_type: int
+        description: "Number of RAWG users who reviewed the game"
+
+      - name: esrb_rating_name
+        data_type: float
+        description: "ESRB ratings"
+
+      - name: added_by_status_yet
+        data_type: int
+        description: "Number of RAWG users had the game as 'Not played'"
+
+      - name: added_by_status_owned
+        data_type: int
+        description: "Number of RAWG users had the game as 'Owned'"
+
+      - name: added_by_status_toplay
+        data_type: int
+        description: "Number of RAWG users had the game as 'To play'"
+
+      - name: added_by_status_dropped
+        data_type: int
+        description: "Number of RAWG users had the game as 'Played but not beaten'"
+
+      - name: added_by_status_playing
+        data_type: int
+        description: "Number of RAWG users had the game as 'Playing'"
+
+      - name: platform_names
+        data_type: string
+        description: "Platforms game was released on. Separated by ||"
+
+
+
