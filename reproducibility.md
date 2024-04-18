@@ -118,7 +118,9 @@ OPTIONS (
   uris = ['gs://bucket/data_folder/*.csv']
 )
 ;
-Once you run the command in big query, you will see the table in your BigQuery Studio section.
+
+```
+Once you run the query, you will see the table in your BigQuery Studio section.
 
 <img width="305" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/e8a9d7a2-d7c7-4225-a69e-8de153d10f33">
 
