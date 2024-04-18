@@ -208,6 +208,7 @@ Finally, once you stg table is built, you can create your dimension table sql fi
 
 <img width="942" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/338e7f40-7827-4606-af72-d36564bcc251">
 
+
 Finally, we need to export the modelled data from BigQuery using Google Drive option and point this csv to tableau to build the final dashboard.
 
 
