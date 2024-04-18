@@ -124,6 +124,102 @@ Once you run the query, you will see the table in your BigQuery Studio section.
 
 <img width="305" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/e8a9d7a2-d7c7-4225-a69e-8de153d10f33">
 
+## Modelling using dbt
+
+In order to model our data once the data is loaded in our data warehouse (BigQuery). I am going to use the star schema principle ( Kimball Modelling Technique). The key thing of this technique is building a dimension tables and a final fact table to execute queries to do futher analysis in a structure way. Another advantage is its focus on simplicity, flexibility, and user-friendliness, which allows organizations to efficiently capture and represent business data in a way that is intuitive and easily understandable by business users.
+
+Using dbt (Data Build Tool) in data engineering projects offers several benefits for modeling and transforming data. These are the main key advantages: Modularization,Version control, Documentation, testing,Dependency Management,Incremental Builds,Execution Environment and Community and Ecosystem.
+
+## Get access to dbt
+
+1-Create a new service account for dbt with the BigQuery Admin role and generate a key.
+2-Create a new dbt account (https://cloud.getdbt.com/)
+3-create a new dbt cloud project, you need to select the BigQuery for your datawarehouse connection,
+after that you  need upload your service account key and all the fields will be automatically populated.
+
+Finally, you will have access to the developer section in dbt cloud.
+
+## Development step
+
+Firstly, you need to create a schema.yml file under stanging folder.
+
+Here you need to set up, the name of the model, database name and schema and after that you need to type all the column names, description and data type for all the column of your data model.
+
+<img width="905" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/3b9e7882-c6a0-4f41-9074-8d4a10b630c7">
+
+After that, you need to create your stg model running the following code:
+
+```
+{{
+    config(
+        materialized='view'
+    )
+}}
+
+with 
+
+source as (
+
+    select * from {{ source('staging_rawg', 'games') }}
+
+),
+
+renamed as (
+
+    select
+        id as id_game,
+        name,
+        tba,
+        released,
+        rating,
+	    rating_top,
+        exceptional,
+	    recommended,
+	    meh,
+	    skip,
+	    playtime,
+	    metacritic,
+	    reviews_count,
+	    esrb_rating_name,
+	    added_by_status_yet,
+	    added_by_status_owned,
+	    added_by_status_toplay,
+	    added_by_status_dropped,
+	    added_by_status_playing,
+        platform_names
+
+    from source
+)
+
+select * from renamed
+
+```
+
+Once you save the file, you can run 'dbt build' in the terminal in the bottom left panel. if there are not errors showing up, you will have your stg table in the dbt_database that you set up in your dbt account.
+
+<img width="1410" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/37ad26ca-4f36-47d2-825b-692d4ae760b3">
+
+
+<img width="1440" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/07f7fae9-0ff1-4411-9e07-6823c01ddc5b">
+
+<img width="942" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/04ae50ef-785e-4bd3-98eb-29bbd74bbf8d">
+
+Finally, once you stg table is built, you can create your dimension table sql files and your fact table sql to get your modelled data in BigQuery.  Once all your dim files and fact table are created, you need to run again 'dbt build' run to push the data into your datawarehouse.
+
+<img width="942" alt="image" src="https://github.com/jcgarciasis/RAWG_games_analysis/assets/32393447/338e7f40-7827-4606-af72-d36564bcc251">
+
+Finally, we need to export the modelled data from BigQuery using Google Drive option and point this csv to tableau to build the final dashboard.
+
+
+
+
+
+
+
+
+
+
+
 
 
 
