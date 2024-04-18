@@ -20,7 +20,8 @@ After doing the ETL process, I modelled the data to finally push the data into a
 
 ## Reproducibility
 
-Please click here
+Please click[ here](https://github.com/jcgarciasis/RAWG_games_analysis/blob/main/reproducibility.md)
+
  
 
  
